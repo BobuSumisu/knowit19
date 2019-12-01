@@ -54,7 +54,7 @@ fn main() {
         .filter_map(|num| num.trim().parse().ok())
         .collect();
 
-    println!("Luke 1: {}", simulate(sheep_supplies).unwrap());
+    println!("{}", simulate(sheep_supplies).unwrap());
 }
 
 #[cfg(test)]
