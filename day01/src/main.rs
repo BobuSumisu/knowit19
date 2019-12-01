@@ -1,13 +1,22 @@
 #![allow(dead_code)]
 
-use std::fs;
+use std::io::{self, Read};
 
-fn read_input() -> Vec<u32> {
-    fs::read_to_string("input/input.txt")
-        .unwrap()
+type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+
+fn main() -> Result<()> {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input)?;
+
+    let sheep_numbers = input
         .split(',')
         .map(|v| v.trim().parse().unwrap())
-        .collect()
+        .collect();
+
+    let day = simulate(sheep_numbers).unwrap();
+    println!("{}", day);
+
+    Ok(())
 }
 
 fn simulate(sheep_numbers: Vec<u32>) -> Option<u32> {
@@ -39,6 +48,7 @@ fn simulate(sheep_numbers: Vec<u32>) -> Option<u32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     #[test]
     fn test_simulate() {
@@ -47,8 +57,12 @@ mod tests {
     }
 
     #[test]
-    fn test_solution() {
-        let sheep_numbers = read_input();
+    fn test_solution() -> Result<()> {
+        let sheep_numbers = fs::read_to_string("input/input.txt")?
+            .split(',')
+            .map(|v| v.trim().parse().unwrap())
+            .collect();
         assert_eq!(simulate(sheep_numbers), Some(7602));
+        Ok(())
     }
 }
