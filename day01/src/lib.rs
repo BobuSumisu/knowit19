@@ -1,7 +1,9 @@
+#![allow(dead_code)]
+
 use std::fs;
 
 fn read_input() -> Vec<u32> {
-    fs::read_to_string("input/day01.txt")
+    fs::read_to_string("input/input.txt")
         .unwrap()
         .split(',')
         .map(|v| v.trim().parse().unwrap())
