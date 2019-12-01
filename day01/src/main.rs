@@ -1,48 +1,60 @@
-#![allow(dead_code)]
-
 use std::io::{self, Read};
 
-type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
-
-fn main() -> Result<()> {
-    let mut input = String::new();
-    io::stdin().read_to_string(&mut input)?;
-
-    let sheep_numbers = input
-        .split(',')
-        .map(|v| v.trim().parse().unwrap())
-        .collect();
-
-    let day = simulate(sheep_numbers).unwrap();
-    println!("{}", day);
-
-    Ok(())
+struct Dragon {
+    mass: u64,
+    days_hungry: u64,
 }
 
-fn simulate(sheep_numbers: Vec<u32>) -> Option<u32> {
-    let mut dragon_size = 50;
-    let mut leftovers = 0;
-    let mut days_gone_hungry = 0;
+impl Dragon {
+    fn new() -> Dragon {
+        Dragon {
+            mass: 50,
+            days_hungry: 0,
+        }
+    }
 
-    for (day, num_sheep) in sheep_numbers.iter().enumerate() {
-        let num_sheep = num_sheep + leftovers;
+    fn is_going_berserk(&self) -> bool {
+        self.days_hungry >= 5
+    }
 
-        if dragon_size <= num_sheep {
-            leftovers = num_sheep - dragon_size;
-            dragon_size += 1;
-            days_gone_hungry = 0;
+    fn eat(&mut self, sheep: u64) -> u64 {
+        if sheep < self.mass {
+            self.mass -= 1;
+            self.days_hungry += 1;
+            0
         } else {
-            leftovers = 0;
-            dragon_size -= 1;
-            days_gone_hungry += 1;
+            let leftover = sheep - self.mass;
+            self.mass += 1;
+            self.days_hungry = 0;
+            leftover
+        }
+    }
+}
 
-            if days_gone_hungry >= 5 {
-                return Some(day as u32);
-            }
+fn simulate(sheep_supplies: Vec<u64>) -> Option<u64> {
+    let mut dragon = Dragon::new();
+    let mut leftover = 0;
+
+    for (day, &sheep) in sheep_supplies.iter().enumerate() {
+        leftover = dragon.eat(sheep + leftover);
+        if dragon.is_going_berserk() {
+            return Some(day as u64);
         }
     }
 
     None
+}
+
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input).unwrap();
+
+    let sheep_supplies = input
+        .split(',')
+        .filter_map(|num| num.trim().parse().ok())
+        .collect();
+
+    println!("Luke 1: {}", simulate(sheep_supplies).unwrap());
 }
 
 #[cfg(test)]
@@ -52,17 +64,17 @@ mod tests {
 
     #[test]
     fn test_simulate() {
-        let sheep_numbers = vec![50, 52, 52, 49, 50, 47, 45, 43, 50, 55];
-        assert_eq!(simulate(sheep_numbers), Some(7));
+        let sheep_supplies = vec![50, 52, 52, 49, 50, 47, 45, 43, 50, 55];
+        assert_eq!(simulate(sheep_supplies), Some(7));
     }
 
     #[test]
-    fn test_solution() -> Result<()> {
-        let sheep_numbers = fs::read_to_string("input/input.txt")?
+    fn test_solution() {
+        let sheep_supplies = fs::read_to_string("input/input.txt")
+            .unwrap()
             .split(',')
-            .map(|v| v.trim().parse().unwrap())
+            .filter_map(|num| num.trim().parse().ok())
             .collect();
-        assert_eq!(simulate(sheep_numbers), Some(7602));
-        Ok(())
+        assert_eq!(simulate(sheep_supplies), Some(7602));
     }
 }
