@@ -31,7 +31,7 @@ impl Dragon {
     }
 }
 
-fn simulate(sheep_supplies: Vec<u64>) -> Option<u64> {
+fn simulate(sheep_supplies: &[u64]) -> Option<u64> {
     let mut dragon = Dragon::new();
     let mut leftover = 0;
 
@@ -49,12 +49,12 @@ fn main() {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input).unwrap();
 
-    let sheep_supplies = input
+    let sheep_supplies: Vec<u64> = input
         .split(',')
         .filter_map(|num| num.trim().parse().ok())
         .collect();
 
-    println!("{}", simulate(sheep_supplies).unwrap());
+    println!("{}", simulate(&sheep_supplies).unwrap());
 }
 
 #[cfg(test)]
@@ -65,16 +65,16 @@ mod tests {
     #[test]
     fn test_simulate() {
         let sheep_supplies = vec![50, 52, 52, 49, 50, 47, 45, 43, 50, 55];
-        assert_eq!(simulate(sheep_supplies), Some(7));
+        assert_eq!(simulate(&sheep_supplies), Some(7));
     }
 
     #[test]
     fn test_solution() {
-        let sheep_supplies = fs::read_to_string("input/input.txt")
+        let sheep_supplies: Vec<u64> = fs::read_to_string("input/input.txt")
             .unwrap()
             .split(',')
             .filter_map(|num| num.trim().parse().ok())
             .collect();
-        assert_eq!(simulate(sheep_supplies), Some(7602));
+        assert_eq!(simulate(&sheep_supplies), Some(7602));
     }
 }
