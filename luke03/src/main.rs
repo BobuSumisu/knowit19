@@ -5,11 +5,13 @@ use std::io::{self, Read};
 fn main() {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input).unwrap();
+
     let num_chars = input.len();
 
     if fs::metadata("output").is_ok() {
         fs::remove_dir_all("output/").unwrap();
     }
+
     fs::create_dir("output").unwrap();
 
     for width in 1..num_chars {
