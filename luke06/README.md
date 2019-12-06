@@ -3,7 +3,7 @@ Av: Sverre Johann Bjørke
 
 Birte ynskjer seg kun éin ting til jul, og ynskjelista hennar er difor eit bilete av tingen. Birte er bevisst på tryggleik på nett og har forsøkt å obfuskere biletet slik at ingen andre enn julenissen skal kunne lese det. Diverre er ikkje julenissen i stand til å tyde biletet. Kan du hjelpe? Svaret vi skal fram til er altså gjenstanden i biletet. (Løysningsordet er på bokmål)
 
-![img][input/input.png]
+![](input/input.png)
 
 PNG-biletet her består av ein matrise av pikslar. Kvar piksel består igjen av ei liste med tre fargeverdier (rgb). Eksempel på ein piksel kan vere [0, 255, 0], ein grøn piksel.
 
