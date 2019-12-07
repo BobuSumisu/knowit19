@@ -4,7 +4,6 @@ fn main() {
     let mut img = image::open("input/input.png").unwrap();
     let img = img.as_mut_rgb8().unwrap();
 
-    let mut pixels = vec![];
     let mut prev = None;
 
     for pixel in img.pixels_mut() {
@@ -15,7 +14,6 @@ fn main() {
         }
 
         prev = Some(tmp);
-        pixels.push(pixel);
     }
 
     img.save("output/output.png").unwrap();

@@ -6,14 +6,14 @@ struct Dragon {
 }
 
 impl Dragon {
-    fn new() -> Dragon {
-        Dragon {
+    const fn new() -> Self {
+        Self {
             mass: 50,
             days_hungry: 0,
         }
     }
 
-    fn is_going_berserk(&self) -> bool {
+    const fn is_going_berserk(&self) -> bool {
         self.days_hungry >= 5
     }
 
