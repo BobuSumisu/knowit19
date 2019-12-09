@@ -165,13 +165,25 @@ fn parse_input(input: &str) -> Vec<Wheel> {
 
 fn main() {
     let wheels = parse_input(include_str!("../input/input.txt"));
-    for n in 0..=10 {
-        println!("playing with n={} => {}", n, play(&mut wheels.clone(), n));
-    }
+    println!("{}", find_largest(&wheels));
 }
 
-fn play(wheels: &mut Vec<Wheel>, n: i64) -> i64 {
+fn find_largest(wheels: &[Wheel]) -> i64 {
+    let mut largest = 0;
+
+    for n in 0..=10 {
+        let x = play(wheels, n);
+        if x > largest {
+            largest = x;
+        }
+    }
+
+    largest
+}
+
+fn play(init: &[Wheel], n: i64) -> i64 {
     let mut n = n;
+    let mut wheels = init.to_vec();
 
     loop {
         let i = lsd(n) as usize;
@@ -273,12 +285,18 @@ mod tests {
         assert_eq!(224, trekk1fraodde(1234));
         assert_eq!(-224, trekk1fraodde(-1234));
         assert_eq!(22, trekk1fraodde(23));
-        assert_eq!(-222222, trekk1fraodde(-232323));
+        assert_eq!(-222_222, trekk1fraodde(-232_323));
     }
 
     #[test]
     fn test_reverse() {
         assert_eq!(4321, reverse(1234));
         assert_eq!(-4321, reverse(-1234));
+    }
+
+    #[test]
+    fn test_solution() {
+        let wheels = parse_input(include_str!("../input/input.txt"));
+        assert_eq!(84205, find_largest(&wheels));
     }
 }
