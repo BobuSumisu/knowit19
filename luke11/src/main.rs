@@ -33,6 +33,7 @@ fn solve(input: &str, initial_speed: i64) -> usize {
             return i + 1;
         }
     }
+
     0
 }
 
