@@ -11,7 +11,7 @@ Modellen er bygd opp av trekanter. Hver linje inneholder ni tall som til sammen 
 Rekkefølgen til hjørnene følger høyrehåndsregelen. Det vil si at hvis rekkefølgen går mot klokka fra ditt ståsted, peker den flaten av trekanten som er på utsiden av modellen mot deg:
 
 
-[Illustrasjon av høyrehåndsregelen](tetrahedron.jpg)
+![Illustrasjon av høyrehåndsregelen](tetrahedron.jpg)
 Hvor mange milliliter plast bruker han per stykke pynt?
 
 Gi svaret med tre desimaler.
