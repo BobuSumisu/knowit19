@@ -12,6 +12,7 @@ Rekkefølgen til hjørnene følger høyrehåndsregelen. Det vil si at hvis rekke
 
 
 ![Illustrasjon av høyrehåndsregelen](tetrahedron.jpg)
+
 Hvor mange milliliter plast bruker han per stykke pynt?
 
 Gi svaret med tre desimaler.
