@@ -21,18 +21,16 @@ fn parse_input(input: &str) -> (Vec<Vec<char>>, (usize, usize)) {
 
 fn solution(map: &[Vec<char>], birte: (usize, usize)) -> usize {
     let mut num_turns = 0;
-    let mut x = birte.0;
     let mut y = birte.1 as i64;
     let mut dy = -1;
 
-    while x < map[0].len() {
+    for x in birte.0..map[0].len() {
         if map[(y + (3 * dy)) as usize][x] == '#' {
             num_turns += 1;
             dy = -dy;
         } else {
             y += dy;
         }
-        x += 1;
     }
 
     num_turns + 1
